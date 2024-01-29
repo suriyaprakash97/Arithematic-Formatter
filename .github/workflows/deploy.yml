@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     paths:
-      - Arithematic-Formatter/'  # Adjust this path to the file you want to trigger the workflow for
+      - 'Arithematic-Formatter/'  # Adjust this path to the file you want to trigger the workflow for
 
 jobs:
   download:
