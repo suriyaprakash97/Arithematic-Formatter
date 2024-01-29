@@ -1,12 +1,12 @@
-name: Deploy
+name: Upload to Local Server
 
 on:
   push:
     paths:
-     - git@github.com:suriyaprakash97/Arithematic-Formatter.git  # Adjust this path to the file you want to trigger the workflow for
+      - '**/*'
 
 jobs:
-  download:
+  upload:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +22,10 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Download file to local system
-        run: scp -i ssh_key.pem git@github.com:suriyaprakash97/Arithematic-Formatter.git suriya@192.168.137.1:\\192.168.137.1
+      - name: Upload modified file to local server
+        run: scp -i ssh_key.pem $(git diff --name-only ${{ github.sha }}^1 ${{ github.sha }}) suriya@192.168.137.1:/192.168.137.1
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Replace "path/to/your/file" with the path to your file in the repository
-          # Replace "username" with your local system's username
-          # Replace "your-local-system-ip" with the IP address of your local system
-          # Replace "/path/on/local/system" with the path on your local system where you want to copy the file
+          # Replace "username" with your local server's username
+          # Replace "your-local-server-ip" with the IP address of your local server
+          # Replace "/path/on/local/server" with the path on your local server where you want to copy the modified file
