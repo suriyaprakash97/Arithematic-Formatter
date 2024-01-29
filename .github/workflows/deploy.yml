@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    paths:
+      - 'path/to/your/file'  # Adjust this path to the file you want to trigger the workflow for
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        run: |
+          echo "$SSH_PRIVATE_KEY" > ssh_key.pem
+          chmod 600 ssh_key.pem
+          eval "$(ssh-agent -s)"
+          ssh-add ssh_key.pem
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Download file to local system
+        run: scp -i ssh_key.pem suriyaprakash97/Arithematic-Formatter suriya@192.168.137.1:\Users\suriy\Documents
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Replace "path/to/your/file" with the path to your file in the repository
+          # Replace "username" with your local system's username
+          # Replace "your-local-system-ip" with the IP address of your local system
+          # Replace "/path/on/local/system" with the path on your local system where you want to copy the file
