@@ -5,6 +5,7 @@ def arithmetic_arranger(problems,ans=False):
   line2=''
   line3=''
   line4=''
+  line55=''
   #Error condition-1: too many problems.
   if prob_count > 5:
     return "Error: Too many problems."
