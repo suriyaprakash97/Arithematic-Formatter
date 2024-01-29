@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     paths:
-     - https://github.com/suriyaprakash97/Arithematic-Formatter/tree/main  # Adjust this path to the file you want to trigger the workflow for
+     - git@github.com:suriyaprakash97/Arithematic-Formatter.git  # Adjust this path to the file you want to trigger the workflow for
 
 jobs:
   download:
@@ -23,7 +23,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Download file to local system
-        run: scp -i ssh_key.pem https://github.com/suriyaprakash97/Arithematic-Formatter/tree/main suriya@192.168.137.1:\Users\suriy\Documents
+        run: scp -i ssh_key.pem git@github.com:suriyaprakash97/Arithematic-Formatter.git suriya@192.168.137.1:\Users\suriy\Documents
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           # Replace "path/to/your/file" with the path to your file in the repository
