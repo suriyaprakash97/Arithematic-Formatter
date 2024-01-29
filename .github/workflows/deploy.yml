@@ -15,6 +15,8 @@ jobs:
 
       - name: Set up SSH
         run: |
+          rm ssh_key.pem  # Remove the existing key file
+          ssh-keygen -t rsa -b 4096 -m PEM -f ssh_key.pem
           echo "$SSH_PRIVATE_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
           eval "$(ssh-agent -s)"
